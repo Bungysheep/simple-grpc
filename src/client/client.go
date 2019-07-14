@@ -29,6 +29,8 @@ func main() {
 	doFibonaci(c, 10)
 
 	doAverage(c)
+
+	doMax(c)
 }
 
 func doSayHello(c protofiles.SimpleServiceClient, firstName string, lastName string) {
@@ -83,7 +85,7 @@ func doFibonaci(c protofiles.SimpleServiceClient, number int32) {
 }
 
 func doAverage(c protofiles.SimpleServiceClient) {
-	n := []int32{1, 2, 3, 4, 5}
+	n := []int32{1, 2, 3, 4, 5, 0}
 
 	streamReq, err := c.Average(context.Background())
 	if err != nil {
@@ -95,14 +97,8 @@ func doAverage(c protofiles.SimpleServiceClient) {
 			Number: item,
 		}
 
-		err := streamReq.Send(&req)
-		if err != nil {
-			statusErr, ok := status.FromError(err)
-			if ok {
-				log.Printf("ERROR - %s: %s", statusErr.Code(), statusErr.Message())
-			} else {
-				log.Fatalf("Failed to receive stream FibonaciResponse: %v", statusErr)
-			}
+		if err := streamReq.Send(&req); err != nil {
+			log.Fatalf("Failed to receive stream AverageResponse: %v", err)
 			break
 		}
 
@@ -111,8 +107,63 @@ func doAverage(c protofiles.SimpleServiceClient) {
 
 	resp, err := streamReq.CloseAndRecv()
 	if err != nil {
-		log.Fatalf("Failed to receive AverageResponse: %v", err)
+		statusErr, ok := status.FromError(err)
+		if ok {
+			log.Printf("ERROR - %s: %s", statusErr.Code(), statusErr.Message())
+		} else {
+			log.Fatalf("Failed to receive AverageResponse: %v", err)
+		}
+		return
 	}
 
 	log.Printf("AverageResponse: %v", resp.GetResult())
+}
+
+func doMax(c protofiles.SimpleServiceClient) {
+	n := []int32{1, 2, 4, 3, 5, 0}
+
+	streamReq, err := c.Max(context.Background())
+	if err != nil {
+		log.Fatalf("Failed to invoke Max: %v", err)
+	}
+
+	cwait := make(chan struct{})
+
+	go func() {
+		for _, item := range n {
+			req := protofiles.MaxRequest{
+				Number: item,
+			}
+
+			if err := streamReq.Send(&req); err != nil {
+				log.Fatalf("Failed to send stream MaxRequest: %v", err)
+				break
+			}
+
+			time.Sleep(1 * time.Second)
+		}
+		streamReq.CloseSend()
+	}()
+
+	go func() {
+		for {
+			resp, err := streamReq.Recv()
+			if err == io.EOF {
+				break
+			} else if err != nil {
+				statusErr, ok := status.FromError(err)
+				if ok {
+					log.Printf("ERROR - %s: %s", statusErr.Code(), statusErr.Message())
+				} else {
+					log.Fatalf("Failed to receive stream MaxResponse: %v", err)
+				}
+				break
+			}
+
+			log.Printf("MaxResponse: %v", resp.GetResult())
+		}
+		close(cwait)
+	}()
+
+	<-cwait
 }

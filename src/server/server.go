@@ -79,7 +79,46 @@ func (*simpleServiceServer) Average(streamReq protofiles.SimpleService_AverageSe
 
 		log.Printf("AverageRequest: %v", req.GetNumber())
 
+		if req.GetNumber() < 1 {
+			return status.Errorf(codes.InvalidArgument, "Input number must be greater than 0")
+		}
+
 		sum, count = sum+req.GetNumber(), count+1
+	}
+
+	return nil
+}
+
+func (*simpleServiceServer) Max(streamReq protofiles.SimpleService_MaxServer) error {
+	log.Printf("Invoking Max...")
+
+	max := int32(0)
+	for {
+		req, err := streamReq.Recv()
+		if err == io.EOF {
+			break
+		} else if err != nil {
+			log.Fatalf("Failed to receive stream AverageRequst: %v", err)
+			break
+		}
+
+		log.Printf("MaxRequest: %v", req.GetNumber())
+
+		if req.GetNumber() < 1 {
+			return status.Errorf(codes.InvalidArgument, "Input number must be greater than 0")
+		}
+
+		if req.GetNumber() > max {
+			max = req.GetNumber()
+
+			resp := protofiles.MaxResponse{
+				Result: max,
+			}
+
+			if err := streamReq.Send(&resp); err != nil {
+				log.Fatalf("Failed to send stream MaxResponse: %v", err)
+			}
+		}
 	}
 
 	return nil

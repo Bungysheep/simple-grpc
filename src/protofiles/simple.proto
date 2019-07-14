@@ -28,8 +28,17 @@ message AverageResponse {
     double result = 1;
 }
 
+message MaxRequest {
+    int32 number = 1;
+}
+
+message MaxResponse {
+    int32 result = 1;
+}
+
 service SimpleService {
     rpc SayHello (SayHelloRequest) returns (SayHelloResponse);
     rpc Fibonaci (FibonaciRequest) returns (stream FibonaciResponse);
     rpc Average (stream AverageRequest) returns (AverageResponse);
+    rpc Max (stream MaxRequest) returns (stream MaxResponse);
 }
