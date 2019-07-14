@@ -8,6 +8,8 @@ import (
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -22,15 +24,113 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+type SayHelloRequest struct {
+	FirstName            string   `protobuf:"bytes,1,opt,name=firstName,proto3" json:"firstName,omitempty"`
+	LastName             string   `protobuf:"bytes,2,opt,name=lastName,proto3" json:"lastName,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *SayHelloRequest) Reset()         { *m = SayHelloRequest{} }
+func (m *SayHelloRequest) String() string { return proto.CompactTextString(m) }
+func (*SayHelloRequest) ProtoMessage()    {}
+func (*SayHelloRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_266a9d6d68e82ed0, []int{0}
+}
+
+func (m *SayHelloRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SayHelloRequest.Unmarshal(m, b)
+}
+func (m *SayHelloRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SayHelloRequest.Marshal(b, m, deterministic)
+}
+func (m *SayHelloRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SayHelloRequest.Merge(m, src)
+}
+func (m *SayHelloRequest) XXX_Size() int {
+	return xxx_messageInfo_SayHelloRequest.Size(m)
+}
+func (m *SayHelloRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_SayHelloRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SayHelloRequest proto.InternalMessageInfo
+
+func (m *SayHelloRequest) GetFirstName() string {
+	if m != nil {
+		return m.FirstName
+	}
+	return ""
+}
+
+func (m *SayHelloRequest) GetLastName() string {
+	if m != nil {
+		return m.LastName
+	}
+	return ""
+}
+
+type SayHelloResponse struct {
+	Result               string   `protobuf:"bytes,1,opt,name=result,proto3" json:"result,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *SayHelloResponse) Reset()         { *m = SayHelloResponse{} }
+func (m *SayHelloResponse) String() string { return proto.CompactTextString(m) }
+func (*SayHelloResponse) ProtoMessage()    {}
+func (*SayHelloResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_266a9d6d68e82ed0, []int{1}
+}
+
+func (m *SayHelloResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SayHelloResponse.Unmarshal(m, b)
+}
+func (m *SayHelloResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SayHelloResponse.Marshal(b, m, deterministic)
+}
+func (m *SayHelloResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SayHelloResponse.Merge(m, src)
+}
+func (m *SayHelloResponse) XXX_Size() int {
+	return xxx_messageInfo_SayHelloResponse.Size(m)
+}
+func (m *SayHelloResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_SayHelloResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SayHelloResponse proto.InternalMessageInfo
+
+func (m *SayHelloResponse) GetResult() string {
+	if m != nil {
+		return m.Result
+	}
+	return ""
+}
+
+func init() {
+	proto.RegisterType((*SayHelloRequest)(nil), "protofiles.SayHelloRequest")
+	proto.RegisterType((*SayHelloResponse)(nil), "protofiles.SayHelloResponse")
+}
+
 func init() { proto.RegisterFile("src/protofiles/simple.proto", fileDescriptor_266a9d6d68e82ed0) }
 
 var fileDescriptor_266a9d6d68e82ed0 = []byte{
-	// 77 bytes of a gzipped FileDescriptorProto
+	// 178 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x92, 0x2e, 0x2e, 0x4a, 0xd6,
 	0x2f, 0x28, 0xca, 0x2f, 0xc9, 0x4f, 0xcb, 0xcc, 0x49, 0x2d, 0xd6, 0x2f, 0xce, 0xcc, 0x2d, 0xc8,
-	0x49, 0xd5, 0x03, 0x8b, 0x08, 0x71, 0x21, 0x24, 0x8c, 0xf8, 0xb9, 0x78, 0x83, 0xc1, 0x72, 0xc1,
-	0xa9, 0x45, 0x65, 0x99, 0xc9, 0xa9, 0x4e, 0x3c, 0x51, 0x48, 0xd2, 0x49, 0x6c, 0x60, 0xb6, 0x31,
-	0x20, 0x00, 0x00, 0xff, 0xff, 0xb5, 0xed, 0xd7, 0xb9, 0x50, 0x00, 0x00, 0x00,
+	0x49, 0xd5, 0x03, 0x8b, 0x08, 0x71, 0x21, 0x24, 0x94, 0xbc, 0xb9, 0xf8, 0x83, 0x13, 0x2b, 0x3d,
+	0x52, 0x73, 0x72, 0xf2, 0x83, 0x52, 0x0b, 0x4b, 0x53, 0x8b, 0x4b, 0x84, 0x64, 0xb8, 0x38, 0xd3,
+	0x32, 0x8b, 0x8a, 0x4b, 0xfc, 0x12, 0x73, 0x53, 0x25, 0x18, 0x15, 0x18, 0x35, 0x38, 0x83, 0x10,
+	0x02, 0x42, 0x52, 0x5c, 0x1c, 0x39, 0x89, 0x50, 0x49, 0x26, 0xb0, 0x24, 0x9c, 0xaf, 0xa4, 0xc5,
+	0x25, 0x80, 0x30, 0xac, 0xb8, 0x20, 0x3f, 0xaf, 0x38, 0x55, 0x48, 0x8c, 0x8b, 0xad, 0x28, 0xb5,
+	0xb8, 0x34, 0xa7, 0x04, 0x6a, 0x14, 0x94, 0x67, 0x14, 0xc6, 0xc5, 0x1b, 0x0c, 0x76, 0x54, 0x70,
+	0x6a, 0x51, 0x59, 0x66, 0x72, 0xaa, 0x90, 0x2b, 0x17, 0x07, 0x4c, 0xb3, 0x90, 0xb4, 0x1e, 0xc2,
+	0x89, 0x7a, 0x68, 0xee, 0x93, 0x92, 0xc1, 0x2e, 0x09, 0xb1, 0xcf, 0x89, 0x27, 0x0a, 0xc9, 0x7b,
+	0x49, 0x6c, 0x60, 0xb6, 0x31, 0x20, 0x00, 0x00, 0xff, 0xff, 0x90, 0x0f, 0xbc, 0x1b, 0x10, 0x01,
+	0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -45,6 +145,7 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type SimpleServiceClient interface {
+	SayHello(ctx context.Context, in *SayHelloRequest, opts ...grpc.CallOption) (*SayHelloResponse, error)
 }
 
 type simpleServiceClient struct {
@@ -55,22 +156,59 @@ func NewSimpleServiceClient(cc *grpc.ClientConn) SimpleServiceClient {
 	return &simpleServiceClient{cc}
 }
 
+func (c *simpleServiceClient) SayHello(ctx context.Context, in *SayHelloRequest, opts ...grpc.CallOption) (*SayHelloResponse, error) {
+	out := new(SayHelloResponse)
+	err := c.cc.Invoke(ctx, "/protofiles.SimpleService/SayHello", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SimpleServiceServer is the server API for SimpleService service.
 type SimpleServiceServer interface {
+	SayHello(context.Context, *SayHelloRequest) (*SayHelloResponse, error)
 }
 
 // UnimplementedSimpleServiceServer can be embedded to have forward compatible implementations.
 type UnimplementedSimpleServiceServer struct {
 }
 
+func (*UnimplementedSimpleServiceServer) SayHello(ctx context.Context, req *SayHelloRequest) (*SayHelloResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SayHello not implemented")
+}
+
 func RegisterSimpleServiceServer(s *grpc.Server, srv SimpleServiceServer) {
 	s.RegisterService(&_SimpleService_serviceDesc, srv)
+}
+
+func _SimpleService_SayHello_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SayHelloRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SimpleServiceServer).SayHello(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/protofiles.SimpleService/SayHello",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SimpleServiceServer).SayHello(ctx, req.(*SayHelloRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 var _SimpleService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "protofiles.SimpleService",
 	HandlerType: (*SimpleServiceServer)(nil),
-	Methods:     []grpc.MethodDesc{},
-	Streams:     []grpc.StreamDesc{},
-	Metadata:    "src/protofiles/simple.proto",
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "SayHello",
+			Handler:    _SimpleService_SayHello_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "src/protofiles/simple.proto",
 }

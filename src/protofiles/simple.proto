@@ -3,6 +3,15 @@ syntax = "proto3";
 package protofiles;
 option go_package = "protofiles";
 
+message SayHelloRequest {
+    string firstName = 1;
+    string lastName = 2;
+}
+
+message SayHelloResponse {
+    string result = 1;
+}
+
 service SimpleService {
-    
+    rpc SayHello (SayHelloRequest) returns (SayHelloResponse);
 }
