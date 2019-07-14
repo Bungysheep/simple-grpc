@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"os"
+	"os/signal"
 	"simple-grpc/src/protofiles"
 
 	"google.golang.org/grpc"
@@ -33,17 +35,36 @@ func (*simpleServiceServer) SayHello(ctx context.Context, req *protofiles.SayHel
 }
 
 func main() {
-	log.Printf("gRpc server is starting...")
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
+
+	log.Printf("Listener is starting...")
 
 	lis, err := net.Listen("tcp", "0.0.0.0:50051")
 	if err != nil {
 		log.Fatalf("Failed to listen: %v", err)
 	}
 
-	s := grpc.NewServer()
+	opt := []grpc.ServerOption{}
+	s := grpc.NewServer(opt...)
+
 	protofiles.RegisterSimpleServiceServer(s, &simpleServiceServer{})
 
-	if err := s.Serve(lis); err != nil {
-		log.Fatalf("Failed to server: %v", err)
-	}
+	go func() {
+		log.Printf("gRpc server is starting...")
+
+		if err := s.Serve(lis); err != nil {
+			log.Fatalf("gRpc Server failed to serve: %v", err)
+		}
+	}()
+
+	ch := make(chan os.Signal, 1)
+	signal.Notify(ch, os.Interrupt)
+
+	<-ch
+
+	log.Printf("gRpc Server is stopping...")
+	s.Stop()
+
+	log.Printf("Listener is closing...")
+	lis.Close()
 }
