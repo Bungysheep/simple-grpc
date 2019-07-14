@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/signal"
 	"simple-grpc/src/protofiles"
+	"time"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
@@ -32,6 +33,31 @@ func (*simpleServiceServer) SayHello(ctx context.Context, req *protofiles.SayHel
 	}
 
 	return res, nil
+}
+
+func (*simpleServiceServer) Fibonaci(req *protofiles.FibonaciRequest, streamResp protofiles.SimpleService_FibonaciServer) error {
+	log.Printf("Invoking PrimeNumber... Request: %v", req)
+
+	if req.GetNumber() < 1 {
+		return status.Errorf(codes.InvalidArgument, "Input number must be greater than 0")
+	}
+
+	n := int(req.GetNumber())
+	a, b, c := 0, 1, 0
+	for n >= b+c {
+		a, b = b, c
+		c = a + b
+
+		resp := protofiles.FibonaciResponse{
+			Result: int32(c),
+		}
+		if err := streamResp.Send(&resp); err != nil {
+			log.Fatalf("Failed to send stream FibonaciResponse: %v", err)
+		}
+		time.Sleep(1 * time.Second)
+	}
+
+	return nil
 }
 
 func main() {

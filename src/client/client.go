@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"io"
 	"log"
 	"simple-grpc/src/protofiles"
 	"time"
@@ -23,6 +24,9 @@ func main() {
 	doSayHello(c, "", "")
 	doSayHello(c, "James", "")
 	doSayHello(c, "James", "Embongbulan")
+
+	doFibonaci(c, -1)
+	doFibonaci(c, 10)
 }
 
 func doSayHello(c protofiles.SimpleServiceClient, firstName string, lastName string) {
@@ -38,11 +42,40 @@ func doSayHello(c protofiles.SimpleServiceClient, firstName string, lastName str
 		statusErr, ok := status.FromError(err)
 		if ok {
 			log.Printf("ERROR - %s: %s", statusErr.Code(), statusErr.Message())
-			return
+		} else {
+			log.Fatalf("Failed to invoke SayHello: %v", err)
 		}
-
-		log.Fatalf("Failed to invoke SayHello: %v", err)
+		return
 	}
 
 	log.Printf("SayHello Response: %v", resp.GetResult())
+}
+
+func doFibonaci(c protofiles.SimpleServiceClient, number int32) {
+	req := protofiles.FibonaciRequest{
+		Number: number,
+	}
+
+	streamResp, err := c.Fibonaci(context.Background(), &req)
+	if err != nil {
+		log.Fatalf("Failed to invoke Fibonaci: %v", err)
+		return
+	}
+
+	for {
+		resp, err := streamResp.Recv()
+		if err == io.EOF {
+			break
+		} else if err != nil {
+			statusErr, ok := status.FromError(err)
+			if ok {
+				log.Printf("ERROR - %s: %s", statusErr.Code(), statusErr.Message())
+			} else {
+				log.Fatalf("Failed to receive stream FibonaciResponse: %v", err)
+			}
+			break
+		}
+
+		log.Printf("FibonaciResponse: %v", resp.GetResult())
+	}
 }

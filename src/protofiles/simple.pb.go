@@ -110,15 +110,95 @@ func (m *SayHelloResponse) GetResult() string {
 	return ""
 }
 
+type FibonaciRequest struct {
+	Number               int32    `protobuf:"varint,1,opt,name=number,proto3" json:"number,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *FibonaciRequest) Reset()         { *m = FibonaciRequest{} }
+func (m *FibonaciRequest) String() string { return proto.CompactTextString(m) }
+func (*FibonaciRequest) ProtoMessage()    {}
+func (*FibonaciRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_266a9d6d68e82ed0, []int{2}
+}
+
+func (m *FibonaciRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_FibonaciRequest.Unmarshal(m, b)
+}
+func (m *FibonaciRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_FibonaciRequest.Marshal(b, m, deterministic)
+}
+func (m *FibonaciRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_FibonaciRequest.Merge(m, src)
+}
+func (m *FibonaciRequest) XXX_Size() int {
+	return xxx_messageInfo_FibonaciRequest.Size(m)
+}
+func (m *FibonaciRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_FibonaciRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_FibonaciRequest proto.InternalMessageInfo
+
+func (m *FibonaciRequest) GetNumber() int32 {
+	if m != nil {
+		return m.Number
+	}
+	return 0
+}
+
+type FibonaciResponse struct {
+	Result               int32    `protobuf:"varint,1,opt,name=result,proto3" json:"result,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *FibonaciResponse) Reset()         { *m = FibonaciResponse{} }
+func (m *FibonaciResponse) String() string { return proto.CompactTextString(m) }
+func (*FibonaciResponse) ProtoMessage()    {}
+func (*FibonaciResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_266a9d6d68e82ed0, []int{3}
+}
+
+func (m *FibonaciResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_FibonaciResponse.Unmarshal(m, b)
+}
+func (m *FibonaciResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_FibonaciResponse.Marshal(b, m, deterministic)
+}
+func (m *FibonaciResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_FibonaciResponse.Merge(m, src)
+}
+func (m *FibonaciResponse) XXX_Size() int {
+	return xxx_messageInfo_FibonaciResponse.Size(m)
+}
+func (m *FibonaciResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_FibonaciResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_FibonaciResponse proto.InternalMessageInfo
+
+func (m *FibonaciResponse) GetResult() int32 {
+	if m != nil {
+		return m.Result
+	}
+	return 0
+}
+
 func init() {
 	proto.RegisterType((*SayHelloRequest)(nil), "protofiles.SayHelloRequest")
 	proto.RegisterType((*SayHelloResponse)(nil), "protofiles.SayHelloResponse")
+	proto.RegisterType((*FibonaciRequest)(nil), "protofiles.FibonaciRequest")
+	proto.RegisterType((*FibonaciResponse)(nil), "protofiles.FibonaciResponse")
 }
 
 func init() { proto.RegisterFile("src/protofiles/simple.proto", fileDescriptor_266a9d6d68e82ed0) }
 
 var fileDescriptor_266a9d6d68e82ed0 = []byte{
-	// 178 bytes of a gzipped FileDescriptorProto
+	// 235 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x92, 0x2e, 0x2e, 0x4a, 0xd6,
 	0x2f, 0x28, 0xca, 0x2f, 0xc9, 0x4f, 0xcb, 0xcc, 0x49, 0x2d, 0xd6, 0x2f, 0xce, 0xcc, 0x2d, 0xc8,
 	0x49, 0xd5, 0x03, 0x8b, 0x08, 0x71, 0x21, 0x24, 0x94, 0xbc, 0xb9, 0xf8, 0x83, 0x13, 0x2b, 0x3d,
@@ -126,11 +206,14 @@ var fileDescriptor_266a9d6d68e82ed0 = []byte{
 	0x32, 0x8b, 0x8a, 0x4b, 0xfc, 0x12, 0x73, 0x53, 0x25, 0x18, 0x15, 0x18, 0x35, 0x38, 0x83, 0x10,
 	0x02, 0x42, 0x52, 0x5c, 0x1c, 0x39, 0x89, 0x50, 0x49, 0x26, 0xb0, 0x24, 0x9c, 0xaf, 0xa4, 0xc5,
 	0x25, 0x80, 0x30, 0xac, 0xb8, 0x20, 0x3f, 0xaf, 0x38, 0x55, 0x48, 0x8c, 0x8b, 0xad, 0x28, 0xb5,
-	0xb8, 0x34, 0xa7, 0x04, 0x6a, 0x14, 0x94, 0x67, 0x14, 0xc6, 0xc5, 0x1b, 0x0c, 0x76, 0x54, 0x70,
-	0x6a, 0x51, 0x59, 0x66, 0x72, 0xaa, 0x90, 0x2b, 0x17, 0x07, 0x4c, 0xb3, 0x90, 0xb4, 0x1e, 0xc2,
-	0x89, 0x7a, 0x68, 0xee, 0x93, 0x92, 0xc1, 0x2e, 0x09, 0xb1, 0xcf, 0x89, 0x27, 0x0a, 0xc9, 0x7b,
-	0x49, 0x6c, 0x60, 0xb6, 0x31, 0x20, 0x00, 0x00, 0xff, 0xff, 0x90, 0x0f, 0xbc, 0x1b, 0x10, 0x01,
-	0x00, 0x00,
+	0xb8, 0x34, 0xa7, 0x04, 0x6a, 0x14, 0x94, 0xa7, 0xa4, 0xc9, 0xc5, 0xef, 0x96, 0x99, 0x94, 0x9f,
+	0x97, 0x98, 0x9c, 0x09, 0xb3, 0x58, 0x8c, 0x8b, 0x2d, 0xaf, 0x34, 0x37, 0x29, 0xb5, 0x08, 0xac,
+	0x94, 0x35, 0x08, 0xca, 0x03, 0x19, 0x8b, 0x50, 0x8a, 0xd5, 0x58, 0x56, 0x98, 0xb1, 0x46, 0xf3,
+	0x19, 0xb9, 0x78, 0x83, 0xc1, 0x9e, 0x0d, 0x4e, 0x2d, 0x2a, 0xcb, 0x4c, 0x4e, 0x15, 0x72, 0xe5,
+	0xe2, 0x80, 0x39, 0x4a, 0x48, 0x5a, 0x0f, 0xe1, 0x75, 0x3d, 0x34, 0x7f, 0x4b, 0xc9, 0x60, 0x97,
+	0x84, 0x5a, 0xe8, 0xce, 0xc5, 0x01, 0x73, 0x04, 0xaa, 0x31, 0x68, 0xbe, 0x40, 0x35, 0x06, 0xdd,
+	0xdd, 0x06, 0x8c, 0x4e, 0x3c, 0x51, 0x48, 0xe1, 0x9f, 0xc4, 0x06, 0x66, 0x1b, 0x03, 0x02, 0x00,
+	0x00, 0xff, 0xff, 0x41, 0x5e, 0x7e, 0x76, 0xb1, 0x01, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -146,6 +229,7 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type SimpleServiceClient interface {
 	SayHello(ctx context.Context, in *SayHelloRequest, opts ...grpc.CallOption) (*SayHelloResponse, error)
+	Fibonaci(ctx context.Context, in *FibonaciRequest, opts ...grpc.CallOption) (SimpleService_FibonaciClient, error)
 }
 
 type simpleServiceClient struct {
@@ -165,9 +249,42 @@ func (c *simpleServiceClient) SayHello(ctx context.Context, in *SayHelloRequest,
 	return out, nil
 }
 
+func (c *simpleServiceClient) Fibonaci(ctx context.Context, in *FibonaciRequest, opts ...grpc.CallOption) (SimpleService_FibonaciClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_SimpleService_serviceDesc.Streams[0], "/protofiles.SimpleService/Fibonaci", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &simpleServiceFibonaciClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type SimpleService_FibonaciClient interface {
+	Recv() (*FibonaciResponse, error)
+	grpc.ClientStream
+}
+
+type simpleServiceFibonaciClient struct {
+	grpc.ClientStream
+}
+
+func (x *simpleServiceFibonaciClient) Recv() (*FibonaciResponse, error) {
+	m := new(FibonaciResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // SimpleServiceServer is the server API for SimpleService service.
 type SimpleServiceServer interface {
 	SayHello(context.Context, *SayHelloRequest) (*SayHelloResponse, error)
+	Fibonaci(*FibonaciRequest, SimpleService_FibonaciServer) error
 }
 
 // UnimplementedSimpleServiceServer can be embedded to have forward compatible implementations.
@@ -176,6 +293,9 @@ type UnimplementedSimpleServiceServer struct {
 
 func (*UnimplementedSimpleServiceServer) SayHello(ctx context.Context, req *SayHelloRequest) (*SayHelloResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SayHello not implemented")
+}
+func (*UnimplementedSimpleServiceServer) Fibonaci(req *FibonaciRequest, srv SimpleService_FibonaciServer) error {
+	return status.Errorf(codes.Unimplemented, "method Fibonaci not implemented")
 }
 
 func RegisterSimpleServiceServer(s *grpc.Server, srv SimpleServiceServer) {
@@ -200,6 +320,27 @@ func _SimpleService_SayHello_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SimpleService_Fibonaci_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(FibonaciRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(SimpleServiceServer).Fibonaci(m, &simpleServiceFibonaciServer{stream})
+}
+
+type SimpleService_FibonaciServer interface {
+	Send(*FibonaciResponse) error
+	grpc.ServerStream
+}
+
+type simpleServiceFibonaciServer struct {
+	grpc.ServerStream
+}
+
+func (x *simpleServiceFibonaciServer) Send(m *FibonaciResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
 var _SimpleService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "protofiles.SimpleService",
 	HandlerType: (*SimpleServiceServer)(nil),
@@ -209,6 +350,12 @@ var _SimpleService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _SimpleService_SayHello_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "Fibonaci",
+			Handler:       _SimpleService_Fibonaci_Handler,
+			ServerStreams: true,
+		},
+	},
 	Metadata: "src/protofiles/simple.proto",
 }
