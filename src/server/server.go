@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"io"
 	"log"
 	"net"
 	"os"
@@ -36,7 +37,7 @@ func (*simpleServiceServer) SayHello(ctx context.Context, req *protofiles.SayHel
 }
 
 func (*simpleServiceServer) Fibonaci(req *protofiles.FibonaciRequest, streamResp protofiles.SimpleService_FibonaciServer) error {
-	log.Printf("Invoking PrimeNumber... Request: %v", req)
+	log.Printf("Invoking Fibonaci... Request: %v", req)
 
 	if req.GetNumber() < 1 {
 		return status.Errorf(codes.InvalidArgument, "Input number must be greater than 0")
@@ -55,6 +56,30 @@ func (*simpleServiceServer) Fibonaci(req *protofiles.FibonaciRequest, streamResp
 			log.Fatalf("Failed to send stream FibonaciResponse: %v", err)
 		}
 		time.Sleep(1 * time.Second)
+	}
+
+	return nil
+}
+
+func (*simpleServiceServer) Average(streamReq protofiles.SimpleService_AverageServer) error {
+	log.Printf("Invoking Average...")
+
+	sum, count := int32(0), int32(0)
+	for {
+		req, err := streamReq.Recv()
+		if err == io.EOF {
+			resp := protofiles.AverageResponse{
+				Result: float64(sum / count),
+			}
+			return streamReq.SendAndClose(&resp)
+		} else if err != nil {
+			log.Fatalf("Failed to receive stream AverageRequst: %v", err)
+			break
+		}
+
+		log.Printf("AverageRequest: %v", req.GetNumber())
+
+		sum, count = sum+req.GetNumber(), count+1
 	}
 
 	return nil

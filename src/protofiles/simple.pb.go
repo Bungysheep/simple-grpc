@@ -188,32 +188,115 @@ func (m *FibonaciResponse) GetResult() int32 {
 	return 0
 }
 
+type AverageRequest struct {
+	Number               int32    `protobuf:"varint,1,opt,name=number,proto3" json:"number,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AverageRequest) Reset()         { *m = AverageRequest{} }
+func (m *AverageRequest) String() string { return proto.CompactTextString(m) }
+func (*AverageRequest) ProtoMessage()    {}
+func (*AverageRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_266a9d6d68e82ed0, []int{4}
+}
+
+func (m *AverageRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AverageRequest.Unmarshal(m, b)
+}
+func (m *AverageRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AverageRequest.Marshal(b, m, deterministic)
+}
+func (m *AverageRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AverageRequest.Merge(m, src)
+}
+func (m *AverageRequest) XXX_Size() int {
+	return xxx_messageInfo_AverageRequest.Size(m)
+}
+func (m *AverageRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_AverageRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AverageRequest proto.InternalMessageInfo
+
+func (m *AverageRequest) GetNumber() int32 {
+	if m != nil {
+		return m.Number
+	}
+	return 0
+}
+
+type AverageResponse struct {
+	Result               float64  `protobuf:"fixed64,1,opt,name=result,proto3" json:"result,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AverageResponse) Reset()         { *m = AverageResponse{} }
+func (m *AverageResponse) String() string { return proto.CompactTextString(m) }
+func (*AverageResponse) ProtoMessage()    {}
+func (*AverageResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_266a9d6d68e82ed0, []int{5}
+}
+
+func (m *AverageResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AverageResponse.Unmarshal(m, b)
+}
+func (m *AverageResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AverageResponse.Marshal(b, m, deterministic)
+}
+func (m *AverageResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AverageResponse.Merge(m, src)
+}
+func (m *AverageResponse) XXX_Size() int {
+	return xxx_messageInfo_AverageResponse.Size(m)
+}
+func (m *AverageResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_AverageResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AverageResponse proto.InternalMessageInfo
+
+func (m *AverageResponse) GetResult() float64 {
+	if m != nil {
+		return m.Result
+	}
+	return 0
+}
+
 func init() {
 	proto.RegisterType((*SayHelloRequest)(nil), "protofiles.SayHelloRequest")
 	proto.RegisterType((*SayHelloResponse)(nil), "protofiles.SayHelloResponse")
 	proto.RegisterType((*FibonaciRequest)(nil), "protofiles.FibonaciRequest")
 	proto.RegisterType((*FibonaciResponse)(nil), "protofiles.FibonaciResponse")
+	proto.RegisterType((*AverageRequest)(nil), "protofiles.AverageRequest")
+	proto.RegisterType((*AverageResponse)(nil), "protofiles.AverageResponse")
 }
 
 func init() { proto.RegisterFile("src/protofiles/simple.proto", fileDescriptor_266a9d6d68e82ed0) }
 
 var fileDescriptor_266a9d6d68e82ed0 = []byte{
-	// 235 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x92, 0x2e, 0x2e, 0x4a, 0xd6,
-	0x2f, 0x28, 0xca, 0x2f, 0xc9, 0x4f, 0xcb, 0xcc, 0x49, 0x2d, 0xd6, 0x2f, 0xce, 0xcc, 0x2d, 0xc8,
-	0x49, 0xd5, 0x03, 0x8b, 0x08, 0x71, 0x21, 0x24, 0x94, 0xbc, 0xb9, 0xf8, 0x83, 0x13, 0x2b, 0x3d,
-	0x52, 0x73, 0x72, 0xf2, 0x83, 0x52, 0x0b, 0x4b, 0x53, 0x8b, 0x4b, 0x84, 0x64, 0xb8, 0x38, 0xd3,
-	0x32, 0x8b, 0x8a, 0x4b, 0xfc, 0x12, 0x73, 0x53, 0x25, 0x18, 0x15, 0x18, 0x35, 0x38, 0x83, 0x10,
-	0x02, 0x42, 0x52, 0x5c, 0x1c, 0x39, 0x89, 0x50, 0x49, 0x26, 0xb0, 0x24, 0x9c, 0xaf, 0xa4, 0xc5,
-	0x25, 0x80, 0x30, 0xac, 0xb8, 0x20, 0x3f, 0xaf, 0x38, 0x55, 0x48, 0x8c, 0x8b, 0xad, 0x28, 0xb5,
-	0xb8, 0x34, 0xa7, 0x04, 0x6a, 0x14, 0x94, 0xa7, 0xa4, 0xc9, 0xc5, 0xef, 0x96, 0x99, 0x94, 0x9f,
-	0x97, 0x98, 0x9c, 0x09, 0xb3, 0x58, 0x8c, 0x8b, 0x2d, 0xaf, 0x34, 0x37, 0x29, 0xb5, 0x08, 0xac,
-	0x94, 0x35, 0x08, 0xca, 0x03, 0x19, 0x8b, 0x50, 0x8a, 0xd5, 0x58, 0x56, 0x98, 0xb1, 0x46, 0xf3,
-	0x19, 0xb9, 0x78, 0x83, 0xc1, 0x9e, 0x0d, 0x4e, 0x2d, 0x2a, 0xcb, 0x4c, 0x4e, 0x15, 0x72, 0xe5,
-	0xe2, 0x80, 0x39, 0x4a, 0x48, 0x5a, 0x0f, 0xe1, 0x75, 0x3d, 0x34, 0x7f, 0x4b, 0xc9, 0x60, 0x97,
-	0x84, 0x5a, 0xe8, 0xce, 0xc5, 0x01, 0x73, 0x04, 0xaa, 0x31, 0x68, 0xbe, 0x40, 0x35, 0x06, 0xdd,
-	0xdd, 0x06, 0x8c, 0x4e, 0x3c, 0x51, 0x48, 0xe1, 0x9f, 0xc4, 0x06, 0x66, 0x1b, 0x03, 0x02, 0x00,
-	0x00, 0xff, 0xff, 0x41, 0x5e, 0x7e, 0x76, 0xb1, 0x01, 0x00, 0x00,
+	// 274 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x84, 0x92, 0x4f, 0x4b, 0xc4, 0x30,
+	0x10, 0xc5, 0x89, 0xb0, 0xb5, 0x3b, 0xa8, 0x95, 0x1c, 0x16, 0x69, 0xf7, 0x20, 0x3d, 0x75, 0x3d,
+	0x74, 0x45, 0x3f, 0x81, 0xe2, 0x3f, 0x10, 0x3c, 0xb4, 0x37, 0x6f, 0x69, 0x99, 0x95, 0x40, 0xda,
+	0xd4, 0xa4, 0x5d, 0xf0, 0x03, 0xfb, 0x3d, 0xc4, 0x98, 0x36, 0xdb, 0x52, 0xf0, 0x96, 0x99, 0xf7,
+	0xf8, 0x0d, 0xef, 0x11, 0x88, 0xb4, 0x2a, 0xb7, 0x8d, 0x92, 0xad, 0xdc, 0x71, 0x81, 0x7a, 0xab,
+	0x79, 0xd5, 0x08, 0x4c, 0xcd, 0x86, 0x82, 0x13, 0xe2, 0x57, 0x08, 0x72, 0xf6, 0xf5, 0x82, 0x42,
+	0xc8, 0x0c, 0x3f, 0x3b, 0xd4, 0x2d, 0x5d, 0xc3, 0x72, 0xc7, 0x95, 0x6e, 0xdf, 0x58, 0x85, 0x17,
+	0xe4, 0x92, 0x24, 0xcb, 0xcc, 0x2d, 0x68, 0x08, 0xbe, 0x60, 0x56, 0x3c, 0x32, 0xe2, 0x30, 0xc7,
+	0x57, 0x70, 0xee, 0x60, 0xba, 0x91, 0xb5, 0x46, 0xba, 0x02, 0x4f, 0xa1, 0xee, 0x44, 0x6b, 0x51,
+	0x76, 0x8a, 0x37, 0x10, 0x3c, 0xf1, 0x42, 0xd6, 0xac, 0xe4, 0xfd, 0xe1, 0x15, 0x78, 0x75, 0x57,
+	0x15, 0xa8, 0x8c, 0x75, 0x91, 0xd9, 0xe9, 0x17, 0xeb, 0xac, 0xb3, 0xd8, 0xc5, 0x80, 0x4d, 0xe0,
+	0xec, 0x6e, 0x8f, 0x8a, 0x7d, 0xe0, 0x7f, 0xd4, 0x0d, 0x04, 0x83, 0x73, 0x16, 0x4a, 0x7a, 0xe8,
+	0xcd, 0x37, 0x81, 0xd3, 0xdc, 0x34, 0x98, 0xa3, 0xda, 0xf3, 0x12, 0xe9, 0x23, 0xf8, 0x7d, 0x52,
+	0x1a, 0xa5, 0xae, 0xcf, 0x74, 0x52, 0x66, 0xb8, 0x9e, 0x17, 0xed, 0xc1, 0x67, 0xf0, 0xfb, 0x64,
+	0x63, 0xcc, 0xa4, 0x9a, 0x31, 0x66, 0x5a, 0xc6, 0x35, 0xa1, 0x0f, 0x70, 0x6c, 0xc3, 0xd0, 0xf0,
+	0xd0, 0x3a, 0xee, 0x22, 0x8c, 0x66, 0xb5, 0x3f, 0x4a, 0x42, 0xee, 0x4f, 0xde, 0x0f, 0xbe, 0x46,
+	0xe1, 0x99, 0xf7, 0xed, 0x4f, 0x00, 0x00, 0x00, 0xff, 0xff, 0x3c, 0x92, 0x08, 0xd3, 0x4c, 0x02,
+	0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -230,6 +313,7 @@ const _ = grpc.SupportPackageIsVersion4
 type SimpleServiceClient interface {
 	SayHello(ctx context.Context, in *SayHelloRequest, opts ...grpc.CallOption) (*SayHelloResponse, error)
 	Fibonaci(ctx context.Context, in *FibonaciRequest, opts ...grpc.CallOption) (SimpleService_FibonaciClient, error)
+	Average(ctx context.Context, opts ...grpc.CallOption) (SimpleService_AverageClient, error)
 }
 
 type simpleServiceClient struct {
@@ -281,10 +365,45 @@ func (x *simpleServiceFibonaciClient) Recv() (*FibonaciResponse, error) {
 	return m, nil
 }
 
+func (c *simpleServiceClient) Average(ctx context.Context, opts ...grpc.CallOption) (SimpleService_AverageClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_SimpleService_serviceDesc.Streams[1], "/protofiles.SimpleService/Average", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &simpleServiceAverageClient{stream}
+	return x, nil
+}
+
+type SimpleService_AverageClient interface {
+	Send(*AverageRequest) error
+	CloseAndRecv() (*AverageResponse, error)
+	grpc.ClientStream
+}
+
+type simpleServiceAverageClient struct {
+	grpc.ClientStream
+}
+
+func (x *simpleServiceAverageClient) Send(m *AverageRequest) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *simpleServiceAverageClient) CloseAndRecv() (*AverageResponse, error) {
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	m := new(AverageResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // SimpleServiceServer is the server API for SimpleService service.
 type SimpleServiceServer interface {
 	SayHello(context.Context, *SayHelloRequest) (*SayHelloResponse, error)
 	Fibonaci(*FibonaciRequest, SimpleService_FibonaciServer) error
+	Average(SimpleService_AverageServer) error
 }
 
 // UnimplementedSimpleServiceServer can be embedded to have forward compatible implementations.
@@ -296,6 +415,9 @@ func (*UnimplementedSimpleServiceServer) SayHello(ctx context.Context, req *SayH
 }
 func (*UnimplementedSimpleServiceServer) Fibonaci(req *FibonaciRequest, srv SimpleService_FibonaciServer) error {
 	return status.Errorf(codes.Unimplemented, "method Fibonaci not implemented")
+}
+func (*UnimplementedSimpleServiceServer) Average(srv SimpleService_AverageServer) error {
+	return status.Errorf(codes.Unimplemented, "method Average not implemented")
 }
 
 func RegisterSimpleServiceServer(s *grpc.Server, srv SimpleServiceServer) {
@@ -341,6 +463,32 @@ func (x *simpleServiceFibonaciServer) Send(m *FibonaciResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 
+func _SimpleService_Average_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(SimpleServiceServer).Average(&simpleServiceAverageServer{stream})
+}
+
+type SimpleService_AverageServer interface {
+	SendAndClose(*AverageResponse) error
+	Recv() (*AverageRequest, error)
+	grpc.ServerStream
+}
+
+type simpleServiceAverageServer struct {
+	grpc.ServerStream
+}
+
+func (x *simpleServiceAverageServer) SendAndClose(m *AverageResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *simpleServiceAverageServer) Recv() (*AverageRequest, error) {
+	m := new(AverageRequest)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 var _SimpleService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "protofiles.SimpleService",
 	HandlerType: (*SimpleServiceServer)(nil),
@@ -355,6 +503,11 @@ var _SimpleService_serviceDesc = grpc.ServiceDesc{
 			StreamName:    "Fibonaci",
 			Handler:       _SimpleService_Fibonaci_Handler,
 			ServerStreams: true,
+		},
+		{
+			StreamName:    "Average",
+			Handler:       _SimpleService_Average_Handler,
+			ClientStreams: true,
 		},
 	},
 	Metadata: "src/protofiles/simple.proto",
