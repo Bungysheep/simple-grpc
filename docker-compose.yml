@@ -1,0 +1,12 @@
+version: '3'
+services:
+  simple-grpc-server:
+    build:
+      context: .
+      dockerfile: 'Dockerfile'
+    command: ["./bin/server"]
+  simple-grpc-client:
+    build:
+      context: .
+      dockerfile: 'Dockerfile'
+    command: ["./bin/client"]

@@ -14,7 +14,11 @@ import (
 func main() {
 	log.Printf("gRpc client is starting...")
 
-	cc, err := grpc.Dial("0.0.0.0:50051", grpc.WithInsecure())
+	opts := []grpc.DialOption{
+		grpc.WithInsecure(),
+	}
+
+	cc, err := grpc.Dial("simple-grpc-server:50051", opts...)
 	if err != nil {
 		log.Fatalf("Failed to dial with server: %v", err)
 	}
