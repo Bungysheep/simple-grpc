@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"simple-grpc/src/config"
 	"simple-grpc/src/protofiles"
 	"time"
 
@@ -16,12 +17,12 @@ import (
 func main() {
 	log.Printf("gRpc client is starting...")
 
-	hostname := "0.0.0.0"
+	hostname := config.CLIENT_HOSTNAME
 	if os.Getenv("HOSTNAME") != "" {
 		hostname = os.Getenv("HOSTNAME")
 	}
 
-	port := "50051"
+	port := config.PORT
 	if os.Getenv("PORT") != "" {
 		port = os.Getenv("PORT")
 	}

@@ -8,6 +8,7 @@ import (
 	"net"
 	"os"
 	"os/signal"
+	"simple-grpc/src/config"
 	"simple-grpc/src/protofiles"
 	"time"
 
@@ -129,12 +130,12 @@ func main() {
 
 	log.Printf("Listener is starting...")
 
-	hostname := "0.0.0.0"
+	hostname := config.SERVER_HOSTNAME
 	if os.Getenv("HOSTNAME") != "" {
 		hostname = os.Getenv("HOSTNAME")
 	}
 
-	port := "50051"
+	port := config.PORT
 	if os.Getenv("PORT") != "" {
 		port = os.Getenv("PORT")
 	}
