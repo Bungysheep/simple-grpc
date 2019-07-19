@@ -129,7 +129,17 @@ func main() {
 
 	log.Printf("Listener is starting...")
 
-	lis, err := net.Listen("tcp", "0.0.0.0:50051")
+	hostname := "0.0.0.0"
+	if os.Getenv("HOSTNAME") != "" {
+		hostname = os.Getenv("HOSTNAME")
+	}
+
+	port := "50051"
+	if os.Getenv("PORT") != "" {
+		port = os.Getenv("PORT")
+	}
+
+	lis, err := net.Listen("tcp", fmt.Sprintf("%s:%s", hostname, port))
 	if err != nil {
 		log.Fatalf("Failed to listen: %v", err)
 	}

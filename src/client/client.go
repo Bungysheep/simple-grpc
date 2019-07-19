@@ -2,8 +2,10 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"log"
+	"os"
 	"simple-grpc/src/protofiles"
 	"time"
 
@@ -14,11 +16,21 @@ import (
 func main() {
 	log.Printf("gRpc client is starting...")
 
+	hostname := "0.0.0.0"
+	if os.Getenv("HOSTNAME") != "" {
+		hostname = os.Getenv("HOSTNAME")
+	}
+
+	port := "50051"
+	if os.Getenv("PORT") != "" {
+		port = os.Getenv("PORT")
+	}
+
 	opts := []grpc.DialOption{
 		grpc.WithInsecure(),
 	}
 
-	cc, err := grpc.Dial("simple-grpc-server:50051", opts...)
+	cc, err := grpc.Dial(fmt.Sprintf("%s:%s", hostname, port), opts...)
 	if err != nil {
 		log.Fatalf("Failed to dial with server: %v", err)
 	}

@@ -4,9 +4,24 @@ services:
     build:
       context: .
       dockerfile: 'Dockerfile'
+    environment:
+      - HOSTNAME=0.0.0.0
+      - PORT=50051
     command: ["./bin/server"]
+    volumes:
+      - ./src/server:/app/simple-grpc/src/server
+    container_name: simple-grpc-server
+
   simple-grpc-client:
     build:
       context: .
       dockerfile: 'Dockerfile'
+    environment:
+      - HOSTNAME=simple-grpc-server
+      - PORT=50051 
     command: ["./bin/client"]
+    volumes:
+      - ./src/client:/app/simple-grpc/src/client
+    depends_on:
+      - simple-grpc-server
+    container_name: simple-grpc-client
